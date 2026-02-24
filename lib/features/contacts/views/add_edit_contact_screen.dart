@@ -128,6 +128,15 @@ class _AddEditContactFormState extends State<_AddEditContactForm> {
               keyboardType: TextInputType.phone,
               validator: (v) {
                 if (v == null || v.trim().isEmpty) return 'Phone is required';
+                if (v[0] != '6' && v[0] != '7' && v[0] != '8' && v[0] != '9') {
+                  return 'First char should be 6,7,8,9';
+                }
+                if (!v.isNumericOnly) {
+                  return 'It should be a number';
+                }
+                if (v.length != 10) {
+                  return 'It should be 10 numeric';
+                }
                 return null;
               },
             ),
@@ -137,6 +146,12 @@ class _AddEditContactFormState extends State<_AddEditContactForm> {
               label: AppStrings.email,
               icon: Icons.email_outlined,
               keyboardType: TextInputType.emailAddress,
+              validator: (v) {
+                if (v != null && v.trim().isNotEmpty && !v.isEmail) {
+                  return 'The email format is incorrect';
+                }
+                return null;
+              },
             ),
             SizedBox(height: 16.h),
             _buildTextField(
